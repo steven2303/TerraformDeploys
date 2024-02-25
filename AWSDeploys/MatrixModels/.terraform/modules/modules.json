@@ -1,1 +1,0 @@
-{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"gateway","Source":"./modules/gateway","Dir":"modules/gateway"},{"Key":"rds","Source":"./modules/rds","Dir":""},{"Key":"route_table","Source":"./modules/route_table","Dir":"modules/route_table"},{"Key":"subnets","Source":"./modules/subnet","Dir":"modules/subnet"},{"Key":"vpc","Source":"./modules/vpc","Dir":"modules/vpc"}]}
