@@ -1,25 +1,3 @@
-variable "subnet_newbits" {
-  description = "The number of additional bits with which to extend the VPC CIDR block for each subnet"
-  type        = number
-  default     = 4
-}
-
-variable "vpc_cidr_block" {
-  description = "CIDR block for the VPC"
-  type        = string
-}
-
-variable "internet_cidr_block" {
-  description = "CIDR block for routing internet traffic"
-  type        = string
-}
-
-variable "aurora_sg_allowed_ips" {
-  description = "List of allowed IP addresses"
-  type        = list(string)
-  default     = []
-}
-
 variable "aurora_engine" {
   description = "The engine type for the Aurora cluster."
   type        = string
@@ -53,4 +31,14 @@ variable "aurora_instance_class" {
   description = "The instance class for the Aurora cluster instances."
   type        = string
   default     = "db.r5.large"
+}
+
+variable "private_subnet_ids" {
+  description = "A list of subnet IDs to associate with the private route table"
+  type        = list(string)
+}
+
+variable "aurora_security_group_id" {
+  description = "The ID of the Aurora RDS security group"
+  type        = string
 }
