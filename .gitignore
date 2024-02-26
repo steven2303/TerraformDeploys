@@ -3,3 +3,4 @@
 AWSDeploys/LogsFastLayer/.terraform/
 AWSDeploys/FastLayerLogs/.terraform/
 AWSDeploys/MatrixModels/.terraform/
+AWSDeploys/MatrixModels/terraform.tfvars
