@@ -43,6 +43,7 @@ resource "aws_rds_cluster" "aurora_cluster" {
   #kms_key_id        = aws_kms_key.db_key.id
   #backup_retention_period = 7
   #preferred_backup_window = "07:00-09:00"
+  #preferred_maintenance_window = "Sun:23:00-Mon:01:30"
   #enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]
   tags = {
     Name = "AuroraClusterDemo"

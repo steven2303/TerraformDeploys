@@ -8,10 +8,10 @@ variable "igw_id" {
   type        = string
 }
 
-variable "nat_gateway_id" {
-  description = "The ID of the NAT Gateway"
-  type        = string
-}
+#variable "nat_gateway_id" {
+#  description = "The ID of the NAT Gateway"
+#  type        = string
+#}
 
 variable "internet_cidr_block" {
   description = "CIDR block for routing internet traffic"

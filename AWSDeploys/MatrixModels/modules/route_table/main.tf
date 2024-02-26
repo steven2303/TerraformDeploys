@@ -14,10 +14,10 @@ resource "aws_route_table_association" "public_rt_association" {
 resource "aws_route_table" "private_rt" {
   vpc_id = var.vpc_id
 
-  route {
-    cidr_block = var.internet_cidr_block
-    nat_gateway_id  = var.nat_gateway_id
-  }
+  #route {
+  #  cidr_block = var.internet_cidr_block
+  #  nat_gateway_id  = var.nat_gateway_id
+  #}
 
   tags = {
     Name = "private-route-table"
