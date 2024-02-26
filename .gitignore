@@ -1,6 +1,6 @@
 # Auto detect text files and perform LF normalization
 * text=auto
-AWSDeploys/LogsFastLayer/.terraform/
-AWSDeploys/FastLayerLogs/.terraform/
-AWSDeploys/MatrixModels/.terraform/
-AWSDeploys/MatrixModels/terraform.tfvars
+**/.terraform/
+**/terraform.tfstate*
+**/terraform.tfvars
+**/.terraform.lock.hcl
