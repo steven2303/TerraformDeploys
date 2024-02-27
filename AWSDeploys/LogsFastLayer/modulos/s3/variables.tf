@@ -51,3 +51,4 @@ variable "s3_resources_bucket_name" {
 variable "perfil_despliegue"{
   type        = string
 }
+
