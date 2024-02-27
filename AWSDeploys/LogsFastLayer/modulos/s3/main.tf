@@ -84,9 +84,9 @@ resource "null_resource" "upload_scripts" {
   provisioner "local-exec" {
   command = <<EOT
     Get-ChildItem -Path "scripts\\" -File | ForEach-Object {
-      aws s3 cp $_.FullName s3://${aws_s3_bucket.s3_resources_bucket.bucket}/scripts/$($_.Name)
+      aws s3 cp $_.FullName s3://${aws_s3_bucket.s3_resources_bucket.bucket}/scripts/$($_.Name) --profile ${var.perfil_despliegue} --region ${data.aws_region.current.name}
     }
-    aws s3api put-object --bucket ${aws_s3_bucket.s3_resources_bucket.bucket} --key consultas-athena/ 
+    aws s3api put-object --bucket ${aws_s3_bucket.s3_resources_bucket.bucket} --key consultas-athena/ --profile ${var.perfil_despliegue} --region ${data.aws_region.current.name}
   EOT
   interpreter = ["PowerShell", "-Command"]
   }

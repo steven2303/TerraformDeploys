@@ -100,3 +100,7 @@ variable "full_audit_log_key_path" {
   description = "The key of the S3 bucket where the logs historical data is stored"
   type        = string
 }
+
+variable "perfil_despliegue"{
+  type        = string
+}

@@ -49,6 +49,7 @@ module "s3_module" {
   pgmmaster_log_processor_bucket_prefix = var.audit_log_landing_bucket_prefixes[1]
   s3_audit_logs_processed_bucket_name = var.s3_audit_logs_processed_bucket_name
   s3_resources_bucket_name = var.s3_resources_bucket_name
+  perfil_despliegue = var.perfil_despliegue
   providers = {
     aws = aws.virginia
   }

@@ -32,13 +32,13 @@ resource "aws_vpc_endpoint" "s3_endpoint" {
   }
 }
 
-#resource "aws_vpc_endpoint" "secrets_manager_endpoint" {
-#  vpc_id            = var.vpc_id
-#  service_name      = "com.amazonaws.${data.aws_region.current.name}.secretsmanager"
-#  vpc_endpoint_type = "Interface"
-#  subnet_ids        = [aws_subnet.main.id]  # Detallar solo 1
-#  security_group_ids = [aws_security_group.main.id] # Detallar SG
-#  tags = {
-#    Name = "secretmanagerendpoint"
-#  }
-#}
+resource "aws_vpc_endpoint" "secrets_manager_endpoint" {
+  vpc_id            = var.vpc_id
+  service_name      = "com.amazonaws.${data.aws_region.current.name}.secretsmanager"
+  vpc_endpoint_type = "Interface"
+  subnet_ids        = [var.endpoint_subnet_id] 
+  security_group_ids = [var.lambda_security_group_id] 
+  tags = {
+    Name = "secretmanagerendpoint"
+  }
+}

@@ -47,3 +47,7 @@ variable "s3_resources_bucket_name" {
   description = "The name of the S3 bucket used for storing the resources of the project"
   type        = string
 }
+
+variable "perfil_despliegue"{
+  type        = string
+}

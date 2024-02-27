@@ -21,6 +21,8 @@ module "network_connection" {
   vpc_id = module.vpc.vpc_id
   first_public_subnet_id = module.subnets.public_subnet_ids[0]
   private_route_table_id  = module.route_table.private_route_table_id
+  endpoint_subnet_id = module.subnets.private_subnet_ids[0]
+  lambda_security_group_id = module.security_group.lambda_security_group_id
   providers = {
     aws = aws.oregon
   }

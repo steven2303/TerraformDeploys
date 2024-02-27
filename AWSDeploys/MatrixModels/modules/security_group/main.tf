@@ -21,6 +21,13 @@ resource "aws_security_group" "aurora_sg" {
     }
   }
 
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    security_groups = [aws_security_group.lambda_sg.id]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -30,5 +37,21 @@ resource "aws_security_group" "aurora_sg" {
 
   tags = {
     Name = "AuroraRDSSecurityGroup"
+  }
+}
+
+resource "aws_security_group" "lambda_sg" {
+  name        = "LambdaSecurityGroup"
+  description = "Security Group for the Lambda Functions"
+  vpc_id = var.vpc_id
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "LambdaSG"
   }
 }
