@@ -1,3 +1,9 @@
+variable "project_name" {
+  description = "The name of the project"
+  type        = string
+  default     = "my_project"
+}
+
 variable "subnet_newbits" {
   description = "The number of additional bits with which to extend the VPC CIDR block for each subnet"
   type        = number
@@ -53,4 +59,14 @@ variable "aurora_instance_class" {
   description = "The instance class for the Aurora cluster instances."
   type        = string
   default     = "db.r5.large"
+}
+
+variable "secrets_manager_secret_name" {
+  description = "The name of the secret in AWS Secrets Manager"
+  type        = string
+}
+
+variable "s3_matrix_models_bucket_name" {
+  description = "The name of the S3 bucket for matrix models"
+  type        = string
 }

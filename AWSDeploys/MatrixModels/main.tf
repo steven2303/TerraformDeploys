@@ -46,6 +46,21 @@ module "rds_secrets" {
   aurora_master_username = var.aurora_master_username
   private_subnet_ids = module.subnets.private_subnet_ids
   aurora_instance_class = var.aurora_instance_class
+  secrets_manager_secret_name = var.secrets_manager_secret_name
+  providers = {
+    aws = aws.oregon
+  }
+}
+
+module "lambda"  {
+  source = "./modules/lambda"
+  secrets_manager_secret_name = var.secrets_manager_secret_name
+  project_name = var.project_name
+  s3_matrix_models_bucket_name = var.s3_matrix_models_bucket_name
+  aurora_cluster_arn = module.rds_secrets.aurora_cluster_arn
+  secrets_manager_secret_arn = module.rds_secrets.secrets_manager_secret_arn
+  lambda_subnet_ids = module.subnets.private_subnet_ids
+  lambda_security_group_ids = [module.security_group.lambda_security_group_id]
   providers = {
     aws = aws.oregon
   }

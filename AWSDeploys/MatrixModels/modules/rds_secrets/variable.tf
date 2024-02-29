@@ -42,3 +42,8 @@ variable "aurora_security_group_id" {
   description = "The ID of the Aurora RDS security group"
   type        = string
 }
+
+variable "secrets_manager_secret_name" {
+  description = "The name of the secret in AWS Secrets Manager"
+  type        = string
+}

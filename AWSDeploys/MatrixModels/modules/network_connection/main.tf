@@ -28,7 +28,7 @@ resource "aws_vpc_endpoint" "s3_endpoint" {
   vpc_endpoint_type = "Gateway"
   route_table_ids = [var.private_route_table_id]
   tags = {
-    Name = "s3endpoint"
+    Name = "s3-endpoint"
   }
 }
 
@@ -38,7 +38,21 @@ resource "aws_vpc_endpoint" "secrets_manager_endpoint" {
   vpc_endpoint_type = "Interface"
   subnet_ids        = [var.endpoint_subnet_id] 
   security_group_ids = [var.lambda_security_group_id] 
+  private_dns_enabled = true
   tags = {
-    Name = "secretmanagerendpoint"
+    Name = "secret-manager-endpoint"
+  }
+}
+
+
+resource "aws_vpc_endpoint" "api_gateway_endpoint" {
+  vpc_id            = var.vpc_id  
+  service_name      = "com.amazonaws.${data.aws_region.current.name}.execute-api"  
+  vpc_endpoint_type = "Interface"
+  subnet_ids = [var.endpoint_subnet_id]
+  security_group_ids = [var.lambda_security_group_id] 
+  private_dns_enabled = true
+  tags = {
+    Name = "api-gateway-endpoint"
   }
 }

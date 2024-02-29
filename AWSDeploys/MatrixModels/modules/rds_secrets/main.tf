@@ -5,7 +5,7 @@ resource "random_password" "db_password" {
 }
 
 resource "aws_secretsmanager_secret" "fast_layer_credentials" {
-  name = "fast_layer_credentials"
+  name = var.secrets_manager_secret_name
 }
 
 resource "aws_secretsmanager_secret_version" "fast_layer_credentials_version" {
@@ -45,6 +45,7 @@ resource "aws_rds_cluster" "aurora_cluster" {
   #preferred_backup_window = "07:00-09:00"
   #preferred_maintenance_window = "Sun:23:00-Mon:01:30"
   #enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]
+  enable_http_endpoint   = true  # Enable Data API
   tags = {
     Name = "AuroraClusterDemo"
   }
