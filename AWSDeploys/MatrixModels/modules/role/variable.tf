@@ -24,12 +24,8 @@ variable "secrets_manager_secret_name" {
   type        = string
 }
 
-variable "lambda_subnet_ids" {
-  description = "List of subnet IDs for the Lambda function"
-  type        = list(string)
-}
 
-variable "lambda_security_group_ids" {
-  description = "List of security group IDs for the Lambda function"
-  type        = list(string)
-}
+variable "account_b_id" {}
+variable "lambda_execution_role_name_account_b"{}
+variable glue_connection_name {}
+variable lambda_security_group_name {}

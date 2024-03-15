@@ -17,3 +17,7 @@ output "aurora_cluster_arn" {
   description = "The ARN of the Aurora RDS cluster"
   value       = aws_rds_cluster.aurora_cluster.arn
 }
+
+output "secret_manager_id" {
+  value = aws_secretsmanager_secret.fast_layer_credentials.id
+}

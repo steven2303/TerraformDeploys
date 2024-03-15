@@ -7,7 +7,7 @@ resource "aws_iam_role" "lambda_role" {
         Action = "sts:AssumeRole",
         Effect = "Allow",
         Principal = {
-          Service = "lambda.amazonaws.com"
+          Service = ["lambda.amazonaws.com", "glue.amazonaws.com"]
         },
       },
     ],
@@ -34,7 +34,7 @@ resource "aws_iam_policy" "lambda_cloudwatch_logs_policy" {
   })
 }
 
-resource "aws_iam_policy_attachment" "lambda_cloudwatch_logs_attachment" {
+resource "aws_iam_policy_attachment" "lambda_cloudwatch_logs_policy_attachment" {
   name       = "lambda-cloudwatch-logs-${var.project_name}-attachment"
   roles      = [aws_iam_role.lambda_role.name]
   policy_arn = aws_iam_policy.lambda_cloudwatch_logs_policy.arn
@@ -85,7 +85,7 @@ resource "aws_iam_policy" "lambda_secrets_manager_access_policy" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "lambda_secrets_manager_attachment" {
+resource "aws_iam_role_policy_attachment" "lambda_secrets_manager_policy_attachment" {
   role       = aws_iam_role.lambda_role.name
   policy_arn = aws_iam_policy.lambda_secrets_manager_access_policy.arn
 }
@@ -115,37 +115,43 @@ resource "aws_iam_policy" "lambda_aurora_access_policy" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "lambda_aurora_access_attachment" {
+resource "aws_iam_role_policy_attachment" "lambda_aurora_access_policy_attachment" {
   role       = aws_iam_role.lambda_role.name
   policy_arn = aws_iam_policy.lambda_aurora_access_policy.arn
 }
 
-resource "aws_iam_policy" "lambda_vpc_access_policy" {
-  name        = "lambda-vpc-access-${var.project_name}-policy"
-  description = "Policy to allow Lambda function to manage network interfaces in a specific VPC"
+resource "aws_iam_role_policy_attachment" "lambda_vpc_access" {
+  role       = aws_iam_role.lambda_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+}
 
+
+# GLUE
+
+resource "aws_iam_policy" "glue_connection_policy" {
+  name   = "glue-connection-${var.project_name}-policy"
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
-        Effect    = "Allow"
-        Action    = [
-          "ec2:CreateNetworkInterface",
-          "ec2:DescribeNetworkInterfaces",
-          "ec2:DeleteNetworkInterface"
-        ]
-        Resource  = [
-         "arn:aws:ec2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:network-interface/*",
-         "arn:aws:ec2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:subnet/*",
-         "arn:aws:ec2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:security-group/*"
+        Effect   = "Allow"
+        Action   = "glue:GetConnection"
+        Resource = [
+          "arn:aws:glue:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:catalog",  
+          "arn:aws:glue:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:connection/${var.glue_connection_name}" 
         ]
       }
     ]
   })
 }
 
-resource "aws_iam_role_policy_attachment" "lambda_vpc_access_attachment" {
+resource "aws_iam_role_policy_attachment" "glue_connection_policy_attachment" {
   role       = aws_iam_role.lambda_role.name
-  policy_arn = aws_iam_policy.lambda_vpc_access_policy.arn
+  policy_arn = aws_iam_policy.glue_connection_policy.arn
 }
 
+
+resource "aws_iam_role_policy_attachment" "glue_service_role" {
+  role       = aws_iam_role.lambda_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
+}

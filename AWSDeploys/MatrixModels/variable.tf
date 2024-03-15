@@ -4,6 +4,22 @@ variable "project_name" {
   default     = "my_project"
 }
 
+variable "aws_region" {
+  description = "The name of the AWS Region"
+  type        = string
+}
+
+variable "account_b_id" {
+  description = "The AWS Account ID of Account B"
+  type        = string
+}
+
+variable "lambda_execution_role_name_account_b" {
+  description = "The name of the IAM role for Lambda execution in Account B"
+  type        = string
+  default     = "LambdaExecutionRole"
+}
+
 variable "subnet_newbits" {
   description = "The number of additional bits with which to extend the VPC CIDR block for each subnet"
   type        = number
@@ -70,3 +86,15 @@ variable "s3_matrix_models_bucket_name" {
   description = "The name of the S3 bucket for matrix models"
   type        = string
 }
+
+variable "stage_name" {
+  description = "The name of the deployment stage"
+  type        = string
+}
+
+variable "s3_resources_bucket_name" {}
+variable "prefix_recommender" {}
+variable "prefix_profile" {}
+variable prefix_churn {}
+variable prefix_new_partner {}
+variable prefix_re_entry {}

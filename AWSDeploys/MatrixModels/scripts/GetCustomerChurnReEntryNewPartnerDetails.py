@@ -39,8 +39,10 @@ def get_db_connection():
 def lambda_handler(event, context):
     try:
         conn = get_db_connection()
-        cod_persona = event.get('queryStringParameters', {}).get('cod_persona', None)
-        query = f"SELECT * FROM modelos_matrix.recomendador_producto_perfil WHERE cod_persona = '{cod_persona}'"
+        params = event.get('queryStringParameters', {})
+        cod_persona = params.get('cod_persona', None)
+        socio = params.get('socio', None)
+        query = f"SELECT * FROM modelos_matrix.desercion_reingreso_nuevosocio WHERE cod_persona = '{cod_persona}' AND socio = '{socio}'"
 
         with conn.cursor() as cursor:
             cursor.execute(query)
