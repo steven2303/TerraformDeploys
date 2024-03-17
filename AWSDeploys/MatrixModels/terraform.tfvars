@@ -17,15 +17,15 @@ cluster_instance_count = 1
 aurora_instance_class = "db.r5.large"  #db.r5.xlarge
 # S3 Setting
 s3_matrix_models_bucket_name = "matrix-modelos-predictivos-west2"
-# Secret Manager
-secrets_manager_secret_name = "fast_layer_credentials"
-# Glue
-s3_resources_bucket_name = "aws-glue-assets-577585731673-us-west-2"
 prefix_recommender = "modelos_matrix/recomendacion_productos/"
 prefix_profile = "modelos_matrix/perfil_bonus/"
 prefix_churn = "modelos_matrix/fuga_clientes/"
 prefix_new_partner = "modelos_matrix/nuevo_socio/"
 prefix_re_entry = "modelos_matrix/reingreso_clientes/"
+# Secret Manager
+secrets_manager_secret_name = "fast_layer_credentials"
+# Glue
+s3_resources_bucket_name = "aws-glue-assets-577585731673-us-west-2"
 # Stage deployment name
 stage_name = "dev"
 account_b_id = "654654330879"

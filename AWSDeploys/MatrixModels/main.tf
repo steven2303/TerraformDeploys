@@ -52,20 +52,6 @@ module "rds_secrets" {
   }
 }
 
-#module "lambda"  {
-#  source = "./modules/lambda"
-#  secrets_manager_secret_name = var.secrets_manager_secret_name
-#  project_name = var.project_name
-#  s3_matrix_models_bucket_name = var.s3_matrix_models_bucket_name
-#  aurora_cluster_arn = module.rds_secrets.aurora_cluster_arn
-#  secrets_manager_secret_arn = module.rds_secrets.secrets_manager_secret_arn
-#  lambda_subnet_ids = module.subnets.private_subnet_ids
-#  lambda_security_group_ids = [module.security_group.lambda_security_group_id]
-#  providers = {
-#    aws = aws.oregon
-#  }
-#}
-
 module "role"  {
   source = "./modules/role"
   secrets_manager_secret_name = var.secrets_manager_secret_name
@@ -113,6 +99,31 @@ module "glue"  {
   prefix_churn = var.prefix_churn
   prefix_new_partner = var.prefix_new_partner
   prefix_re_entry = var.prefix_re_entry
+  providers = {
+    aws = aws.oregon
+  }
+}
+
+module "s3" {
+  source = "./modules/s3"
+  s3_matrix_models_bucket_name = var.s3_matrix_models_bucket_name
+  s3_prefix_trigger = "${split("/", var.prefix_recommender)[0]}/"
+  lambda_s3_to_glue_trigger_arn = module.lambda.lambda_trigger_glue_job_arn
+  providers = {
+    aws = aws.oregon
+  }
+}
+
+module "lambda"  {
+  source = "./modules/lambda"
+  s3_matrix_models_bucket_name = var.s3_matrix_models_bucket_name
+  glue_job_name1 = module.glue.glue_job_name1
+  glue_job_name2 = module.glue.glue_job_name2
+  lambda_role_arn = module.role.lambda_role_arn
+  s3_matrix_models_prefixes_list1 = [var.prefix_recommender, var.prefix_profile]
+  s3_matrix_models_prefixes_list2 = [var.prefix_churn, var.prefix_new_partner, var.prefix_re_entry]
+  #lambda_subnet_ids = module.subnets.private_subnet_ids
+  #lambda_security_group_ids = [module.security_group.lambda_security_group_id]
   providers = {
     aws = aws.oregon
   }
