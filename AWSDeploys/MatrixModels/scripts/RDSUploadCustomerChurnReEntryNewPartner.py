@@ -28,23 +28,31 @@ TABLE_NAME = options['TABLE_NAME']
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+def extract_date_from_key(key):
+    date_pattern = re.compile(r'\d{4}-\d{2}-\d{2}')
+    match = date_pattern.search(key)
+    if match:
+        return match.group()
+    return None
+
+def update_latest_partition(key, date, latest_date, latest_partition):
+    if latest_date is None or date > latest_date:
+        return date, key
+    return latest_date, latest_partition
+
 def get_latest_partition(s3_client, bucket_name, prefix):
     paginator = s3_client.get_paginator('list_objects_v2')
     result = paginator.paginate(Bucket=bucket_name, Prefix=prefix)
     latest_date = None
     latest_partition = None
-    date_pattern = re.compile(r'\d{4}-\d{2}-\d{2}')
 
     for page in result:
         if 'Contents' in page:
             for obj in page['Contents']:
                 key = obj['Key']
-                match = date_pattern.search(key)
-                if match:
-                    date = match.group()
-                    if latest_date is None or date > latest_date:
-                        latest_date = date
-                        latest_partition = key
+                date = extract_date_from_key(key)
+                if date:
+                    latest_date, latest_partition = update_latest_partition(key, date, latest_date, latest_partition)
 
     return latest_partition
 

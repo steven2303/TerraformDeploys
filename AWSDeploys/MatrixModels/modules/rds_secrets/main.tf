@@ -37,13 +37,11 @@ resource "aws_rds_cluster" "aurora_cluster" {
   db_subnet_group_name   = aws_db_subnet_group.aurora_subnet_group.name
   vpc_security_group_ids = [var.aurora_security_group_id]
   skip_final_snapshot    = true
-  #final_snapshot_identifier = "fast-layer-aurora-cluster-final-snapshot"
+  final_snapshot_identifier = "fast-layer-aurora-cluster-final-snapshot"
   storage_encrypted = true
-  #kms_key_id        = aws_kms_key.db_key.id
   backup_retention_period = 5
   preferred_backup_window = "03:00-05:00"
   preferred_maintenance_window = "Sun:23:00-Mon:01:30"
-  #enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]
   enable_http_endpoint   = true 
   tags = {
     Name = "AuroraClusterDemo"
