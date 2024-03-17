@@ -1,7 +1,6 @@
 resource "random_password" "db_password" {
   length           = 16
   special          = true
-  #override_special = "_%@"
 }
 
 resource "aws_secretsmanager_secret" "fast_layer_credentials" {
@@ -41,11 +40,11 @@ resource "aws_rds_cluster" "aurora_cluster" {
   #final_snapshot_identifier = "fast-layer-aurora-cluster-final-snapshot"
   storage_encrypted = true
   #kms_key_id        = aws_kms_key.db_key.id
-  backup_retention_period = 7
+  backup_retention_period = 5
   preferred_backup_window = "03:00-05:00"
   preferred_maintenance_window = "Sun:23:00-Mon:01:30"
   #enabled_cloudwatch_logs_exports = ["audit", "error", "general", "slowquery"]
-  enable_http_endpoint   = true  # Enable Data API
+  enable_http_endpoint   = true 
   tags = {
     Name = "AuroraClusterDemo"
   }
