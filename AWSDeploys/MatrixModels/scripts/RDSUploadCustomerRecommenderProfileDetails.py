@@ -44,7 +44,6 @@ def get_latest_partition(s3_client, bucket_name, prefix):
     result = paginator.paginate(Bucket=bucket_name, Prefix=prefix)
     latest_date = None
     latest_partition = None
-
     for page in result:
         if 'Contents' in page:
             for obj in page['Contents']:
@@ -52,7 +51,6 @@ def get_latest_partition(s3_client, bucket_name, prefix):
                 date = extract_date_from_key(key)
                 if date:
                     latest_date, latest_partition = update_latest_partition(key, date, latest_date, latest_partition)
-
     return latest_partition
 
 def get_db_credentials(secret_name):
