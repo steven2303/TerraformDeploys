@@ -95,7 +95,7 @@ def main():
     df_recommender_profile = df_profile.merge(df_recommender[[
         'cod_persona', 'sku_1', 'sku_2', 'sku_3', 'sku_4', 'sku_5', 'sku_6','sku_7', 'sku_8', 'sku_9', 'sku_10', 
         'sku_11', 'sku_12', 'sku_13','sku_14', 'sku_15'
-    ]], how='outer', on='cod_persona')
+    ]], how='outer', on='cod_persona', validate='1:1')
     #df_recommender_profile = df_recommender_profile[df_recommender_profile.sku_1.notnull()].copy()
 
     secret_dict = get_db_credentials(SECRET_NAME)

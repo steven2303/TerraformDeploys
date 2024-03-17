@@ -99,8 +99,8 @@ def main():
     df_re_entry = pd.read_parquet(f"s3://{BUCKET_NAME}/{latest_partition_re_entry}")
 
     df_merge = df_new_partner[['mes_nuevo_socio','cod_cliente','socio','prob_nuevo_socio','flag_nuevo_socio','categoria_nuevo_socio','tiempo_bonus']].merge(df_re_entry,how = 'outer',
-                            on = ['cod_cliente','socio'])
-    df_merge = df_merge.merge(df_churn,how = 'outer',on = ['cod_cliente','socio'])
+                            on = ['cod_cliente','socio'], validate='1:1')
+    df_merge = df_merge.merge(df_churn,how = 'outer',on = ['cod_cliente','socio'], validate='1:1')
     df_merge = df_merge[['cod_cliente', 'socio','mes_nuevo_socio','prob_nuevo_socio','flag_nuevo_socio', 'categoria_nuevo_socio','tiempo_bonus','mes_reingreso', 'prob_reingreso', 
                          'flag_reingreso', 'meses_inactivos','categoria_reingreso','mes_desercion', 'prob_desercion','flag_desercion', 
                          'categoria_desercion']].rename(columns = {'cod_cliente':'cod_persona'})
