@@ -47,6 +47,7 @@ module "rds_secrets" {
   private_subnet_ids = module.subnets.private_subnet_ids
   aurora_instance_class = var.aurora_instance_class
   secrets_manager_secret_name = var.secrets_manager_secret_name
+  backup_retention_period = var.backup_retention_period
   providers = {
     aws = aws.oregon
   }

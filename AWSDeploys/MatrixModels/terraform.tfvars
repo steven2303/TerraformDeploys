@@ -15,6 +15,7 @@ aurora_database_name = "fast_layer_db"
 aurora_master_username = "fast_layer_admin"
 cluster_instance_count = 1
 aurora_instance_class = "db.r5.large"  #db.r5.xlarge
+backup_retention_period = 7
 # S3 Setting
 s3_matrix_models_bucket_name = "matrix-modelos-predictivos-west2"
 prefix_recommender = "modelos_matrix/recomendacion_productos/"

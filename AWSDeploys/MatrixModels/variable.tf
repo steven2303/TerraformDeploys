@@ -92,6 +92,7 @@ variable "stage_name" {
   type        = string
 }
 
+variable "backup_retention_period" {}
 variable "s3_resources_bucket_name" {}
 variable "prefix_recommender" {}
 variable "prefix_profile" {}

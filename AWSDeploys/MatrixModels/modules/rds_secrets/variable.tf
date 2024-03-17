@@ -47,3 +47,5 @@ variable "secrets_manager_secret_name" {
   description = "The name of the secret in AWS Secrets Manager"
   type        = string
 }
+
+variable "backup_retention_period" {}

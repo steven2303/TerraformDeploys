@@ -39,7 +39,7 @@ resource "aws_rds_cluster" "aurora_cluster" {
   skip_final_snapshot    = true
   final_snapshot_identifier = "fast-layer-aurora-cluster-final-snapshot"
   storage_encrypted = true
-  backup_retention_period = 5
+  backup_retention_period = var.backup_retention_period
   preferred_backup_window = "03:00-05:00"
   preferred_maintenance_window = "Sun:23:00-Mon:01:30"
   enable_http_endpoint   = true 
