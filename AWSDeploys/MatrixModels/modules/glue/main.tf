@@ -5,7 +5,7 @@ resource "aws_glue_job" "glue_matrix_models_to_rds_etl_job1" {
 
   command {
     name            = "pythonshell"
-    script_location = "s3://${var.s3_resources_bucket_name}/scripts/RDSUploadCustomerRecommenderProfileDetails.py"
+    script_location = "s3://${var.s3_resources_bucket_name}/scripts/RDSUploadCustomerRecommenderProfileDetails.zip"
     python_version  = "3.9"
   }
   execution_property {
@@ -30,7 +30,7 @@ resource "aws_glue_job" "glue_matrix_models_to_rds_etl_job2" {
 
   command {
     name            = "pythonshell"
-    script_location = "s3://${var.s3_resources_bucket_name}/scripts/RDSUploadCustomerChurnReEntryNewPartner.py"
+    script_location = "s3://${var.s3_resources_bucket_name}/scripts/RDSUploadCustomerChurnReEntryNewPartner.zip"
     python_version  = "3.9"
   }
   execution_property {
