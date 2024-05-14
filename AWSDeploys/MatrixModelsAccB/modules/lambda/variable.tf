@@ -5,15 +5,9 @@ variable "project_name" {
 }
 
 
-variable "lambda_subnet_ids" {
-  description = "List of subnet IDs for the Lambda function"
-  type        = list(string)
-}
+#variable "lambda_subnet_ids" {}
 
-variable "lambda_security_group_ids" {
-  description = "List of security group IDs for the Lambda function"
-  type        = list(string)
-}
+# variable "lambda_security_group_ids" {}
 
 variable "account_a_id" {
   description = "The AWS Account ID of Account A"

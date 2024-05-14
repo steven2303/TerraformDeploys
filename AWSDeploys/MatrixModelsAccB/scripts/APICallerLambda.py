@@ -16,7 +16,7 @@ def get_sts_credentials():
     if not cached_credentials or now_with_tz >= cached_credentials['Expiration']:
         sts_client = boto3.client('sts')
         assumed_role_object = sts_client.assume_role(
-            RoleArn="arn:aws:iam::577585731673:role/cross-account-654654330879-api-access-role",
+            RoleArn="arn:aws:iam::654654330879:role/ue1segdevrolflm002",
             RoleSessionName="AssumeRoleSession1"
         )
         # AWS ya devuelve la hora de expiración en UTC
@@ -38,9 +38,9 @@ def invoke_api_with_aws_auth(service, region, url, params):
 
 def lambda_handler(event, context):
     service = 'execute-api'
-    region = 'us-west-2'
-    url = 'https://kawn9npp34.execute-api.us-west-2.amazonaws.com/dev/products-recommender-and-profile'
-    params = {'cod_persona': '354396'}
+    region = 'us-east-1'
+    url = 'https://kewbdi9ex2.execute-api.us-east-1.amazonaws.com/dev/matrix_models/recommender-profile'
+    params = {'cod_persona': '0005493782'}
     
     response = invoke_api_with_aws_auth(service, region, url, params)
     

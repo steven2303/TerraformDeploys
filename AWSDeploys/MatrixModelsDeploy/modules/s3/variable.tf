@@ -1,0 +1,9 @@
+variable s3_matrix_models_bucket_name {}
+variable lambda_s3_to_glue_trigger_arn {}
+variable s3_prefix_trigger {}
+variable s3_resources_bucket_name {}
+variable perfil_despliegue {}
+variable lambda_invoke_model1_arn {}
+variable s3_prefix_trigger_model {}
+variable s3_prefix_trigger_preprocessing {}
+variable prefix_sku_catalog {}
